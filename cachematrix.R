@@ -1,15 +1,36 @@
-## Put comments here that give an overall description of what your
-## functions do
-
-## Write a short comment describing this function
+#The makeCacheMatrix function sets the inverse matrix to Null.
+#Sets x to matrix input by the user
+#Gets the matrix details
+#Sets and gets inverse of the matrix
 
 makeCacheMatrix <- function(x = matrix()) {
-
+  inv = NULL
+  set = function(y) {
+    x <<- y
+    inv <<- NULL
+  }
+  get = function() x
+  setinv = function(inverse) inv <<- inverse
+  getinv = function() inv
+  list(set = set, get = get,
+       setinv = setinv,
+       getinv = getinv)
 }
 
-
-## Write a short comment describing this function
+#CacheSolve reads the matrix provided, checks if the inverse is already calcuated, if yes, 
+#retrieves value from the cache, else calculates the inverse of the matrix.
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+  inv = x$getinv()
+  #m <- getinv()
+  if(!is.null(inv)) {
+    message("getting cached data")
+    return(inv)
+  }
+  data = x$get()
+  #data <- get()
+  inv = solve(data)
+  x$setinv(inv)
+  #setinv(m)
+  inv
 }
